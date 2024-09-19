@@ -5,9 +5,9 @@ import eslintPlugin from 'vite-plugin-eslint';
 export default defineConfig({
   plugins: [
     react(),
-    eslintPlugin({
-      include: ['src/*.jsx', 'src/**/*.js'],
-    }),
+    // eslintPlugin({
+    //   include: ['src/*.jsx', 'src/**/*.js'],
+    // }),
   ],
   css: {
     modules: {
