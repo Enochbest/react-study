@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 // import App from './App.jsx'
 // import './index.css';
 // import App from './01.了解JSX.jsx';
-import App from './17.startTransition方法及并发模式.jsx';
+import App from './02.内置hooks/18.useTransition和useDeferedValue.jsx';
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
   //   <App />

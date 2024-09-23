@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, startTransition } from 'react';
 
 /**
  * React 18之前，渲染一个单一的，不间断的，同步的事务，一旦渲染开始，就不能被中断
@@ -11,7 +11,7 @@ function List({ query }) {
   const word = 'hello world';
   if (query !== '' && word.includes(query)) {
     const arr = word.split(query);
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 20000; i++) {
       items.push(
         <li key={i}>
           {arr[0]} <span style={{ color: 'red' }}>{query}</span>
@@ -20,7 +20,7 @@ function List({ query }) {
       );
     }
   } else {
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 20000; i++) {
       items.push(<li key={i}>{word}</li>);
     }
   }
@@ -30,10 +30,19 @@ function App() {
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
   const handleChange = e => {
-    //紧急
+    //这样训话会阻塞输入框的显示,因为必须先等循环结束才能进行渲染
+    // //紧急
+    // setSearch(e.target.value);
+    // //非紧急
+    // setQuery(e.target.value);
+
+    //输入框先进行渲染,列表后续渲染
+    // 紧急
     setSearch(e.target.value);
-    //非紧急
-    setQuery(e.target.value);
+    startTransition(() => {
+      //非紧急
+      setQuery(e.target.value);
+    });
   };
   return (
     <div>
